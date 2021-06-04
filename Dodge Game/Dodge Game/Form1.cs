@@ -26,6 +26,7 @@ namespace Dodge_Game
         bool downDown = false;
         SolidBrush goldBrush = new SolidBrush(Color.Gold);
         SolidBrush whiteBrush = new SolidBrush(Color.White);
+        string gameState = "waiting";
 
         public Form1()
         {
@@ -36,6 +37,19 @@ namespace Dodge_Game
             //Add these new rectangles to the globally created obstacle lists 
             leftObstacles.Add(leftObstacle);
             rightObstacles.Add(rightObstacle);
+        }
+        public void GameInitialize()
+        {
+            titleLabel.Text = "";
+            subTitleLabel.Text = "";
+
+            gameTimer.Enabled = true;
+            gameState = "running";
+            leftObstacles.Clear();
+            rightObstacles.Clear();
+
+            hero.X = 10;
+            hero.Y = 190;
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
@@ -54,6 +68,18 @@ namespace Dodge_Game
                     break;
                 case Keys.Right:
                     rightDown = true;
+                    break;
+                case Keys.Space:
+                    if (gameState == "waiting" || gameState == "over")
+                    {
+                        GameInitialize();
+                    }
+                    break;
+                case Keys.Escape:
+                    if (gameState == "waiting" || gameState == "over")
+                    {
+                        Application.Exit();
+                    }
                     break;
             }
         }
@@ -151,6 +177,7 @@ namespace Dodge_Game
                 {
                     //if contact is made with a obstacle then stop the gameTimer event
                     gameTimer.Enabled = false;
+                    gameState = "over";
                 }
             }
             //check for collisions between hero and  right obstacles
@@ -160,12 +187,14 @@ namespace Dodge_Game
                 {
                     //if contact is made with a obstacle then stop the gameTimer event
                     gameTimer.Enabled = false;
+                    gameState = "over";
                 }
             }
             //check for a successful finish (making it to the right wall)
             if (hero.X >= this.Width - hero.Width)
             {
                 gameTimer.Enabled = false;
+                gameState = "win";
             }
             //Update and display all new values
             Refresh();
@@ -173,17 +202,36 @@ namespace Dodge_Game
 
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
-            //draw hero
-            e.Graphics.FillRectangle(goldBrush, hero);
-            //fill all rectangles from leftObstacles list
-            for(int i = 0; i < leftObstacles.Count(); i++)
+            if (gameState == "waiting")
             {
-                e.Graphics.FillRectangle(whiteBrush, leftObstacles[i]);
+                titleLabel.Text = "Dodge Runner 2000";
+                subTitleLabel.Text = "Press Space Bar to Start or Escape to Exit";
             }
-            //fill all rectangles from rightObstacles list
-            for (int i = 0; i < rightObstacles.Count(); i++)
+            else if (gameState == "running")
             {
-                e.Graphics.FillRectangle(whiteBrush, rightObstacles[i]);
+                //draw hero
+                e.Graphics.FillRectangle(goldBrush, hero);
+                //fill all rectangles from leftObstacles list
+                for (int i = 0; i < leftObstacles.Count(); i++)
+                {
+                    e.Graphics.FillRectangle(whiteBrush, leftObstacles[i]);
+                }
+                //fill all rectangles from rightObstacles list
+                for (int i = 0; i < rightObstacles.Count(); i++)
+                {
+                    e.Graphics.FillRectangle(whiteBrush, rightObstacles[i]);
+                }
+            }
+            else if (gameState == "over")
+            {
+                titleLabel.Text = "They Got You";
+
+                subTitleLabel.Text = "Press Space Bar to Start or Escape to Exit";
+            }
+            else if (gameState == "win")
+            {
+                titleLabel.Text = "You Made It!!!";
+                subTitleLabel.Text = "Press Space Bar to Start or Escape to Exit";
             }
         }
     }
