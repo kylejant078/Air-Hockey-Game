@@ -39,6 +39,7 @@ namespace Final_Project
             this.gameTimer = new System.Windows.Forms.Timer(this.components);
             this.startEscapeLabel = new System.Windows.Forms.Label();
             this.highScoreLabel = new System.Windows.Forms.Label();
+            this.moveInstructionsLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // topLabel
@@ -138,6 +139,18 @@ namespace Final_Project
             this.highScoreLabel.TabIndex = 7;
             this.highScoreLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // moveInstructionsLabel
+            // 
+            this.moveInstructionsLabel.BackColor = System.Drawing.Color.Transparent;
+            this.moveInstructionsLabel.Font = new System.Drawing.Font("OCR A Extended", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.moveInstructionsLabel.ForeColor = System.Drawing.Color.White;
+            this.moveInstructionsLabel.Location = new System.Drawing.Point(1, 30);
+            this.moveInstructionsLabel.Name = "moveInstructionsLabel";
+            this.moveInstructionsLabel.Size = new System.Drawing.Size(592, 31);
+            this.moveInstructionsLabel.TabIndex = 8;
+            this.moveInstructionsLabel.Text = "A, S, W, D, To Move ~ Enter To Shoot";
+            this.moveInstructionsLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -145,6 +158,7 @@ namespace Final_Project
             this.BackgroundImage = global::Final_Project.Properties.Resources.hockey_net;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.ClientSize = new System.Drawing.Size(600, 400);
+            this.Controls.Add(this.moveInstructionsLabel);
             this.Controls.Add(this.highScoreLabel);
             this.Controls.Add(this.startEscapeLabel);
             this.Controls.Add(this.enterButton);
@@ -177,6 +191,7 @@ namespace Final_Project
         private System.Windows.Forms.Timer gameTimer;
         private System.Windows.Forms.Label startEscapeLabel;
         private System.Windows.Forms.Label highScoreLabel;
+        private System.Windows.Forms.Label moveInstructionsLabel;
     }
 }
 
